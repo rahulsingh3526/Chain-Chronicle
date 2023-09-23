@@ -1,6 +1,12 @@
 // app/page.tsx
 "use client";
-import { useExploreProfiles } from "@lens-protocol/react-web";
+import {
+  useActiveProfile,
+  useExploreProfiles,
+  useProfile,
+  useWalletLogin,
+  useWalletLogout,
+} from "@lens-protocol/react-web";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 // import styles from "globals/styles";
@@ -10,41 +16,50 @@ import Image from "next/image";
 import { LuPhoneCall } from "react-icons/lu";
 import { FiMail } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useRef, useState } from "react";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
-export default function Home() {
+export default function Home({ params: { handle } }) {
   const { data: profiles } = useExploreProfiles({
-    limit: 5,
+    limit: 6,
   });
+  const [showSection, setShowSection] = useState(false);
+
+  const toggleSection = () => {
+    setShowSection(!showSection);
+  };
+
+  const { execute: login } = useWalletLogin();
+  const { execute: logout } = useWalletLogout();
+  const { data: wallet } = useActiveProfile();
+  const { isConnected } = useAccount();
+  const { disconnectAsync } = useDisconnect();
+
+  let { data: profile, loading } = useProfile({ handle });
+
+  const { connectAsync } = useConnect({
+    connector: new InjectedConnector(),
+  });
+
+  // new login function
+  const onLoginClick = async () => {
+    if (isConnected) {
+      await disconnectAsync();
+    }
+    const { connector } = await connectAsync();
+    if (connector instanceof InjectedConnector) {
+      const walletClient = await connector.getWalletClient();
+      await login({
+        address: walletClient.account.address,
+      });
+    }
+  };
   return (
     // <div
     //   className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className} bg-[#302C42]`}
     // >
     <>
-      <div className="p-20">
-        <h1 className="text-5xl">My Lens App</h1>
-        {profiles?.map((profile, index) => (
-          <Link href={`/profile/${profile.handle}`} key={index}>
-            <div className=" flex flex-col items-center bg-gradient-radial from-[#413C5D] via-[#312539] to-[#211E2D] rounded-lg shadow-lg p-2 overflow-hidden m-2">
-              {profile.picture && profile.picture.__typename === "MediaSet" ? (
-                <img
-                  src={profile.picture.original.url}
-                  width="120"
-                  height="120"
-                  alt={profile.handle}
-                  className="border-4 rounded-full"
-                />
-              ) : (
-                <div className="w-14 h-14 bg-slate-500	" />
-              )}
-              <h3 className="font-bold text-xl text-white mb-2">
-                {profile.handle}
-              </h3>
-              <div className="border-t-[1px] h-0 w-48 "></div>
-              <p className="text-gray-700 text-base w-40">{profile.bio}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
       <div className="bg-[#302C42] p-4 min-h-screen">
         <div className="mx-6">
           <nav className=" p-4 ">
@@ -110,9 +125,23 @@ export default function Home() {
                 <button className="text-white border-2 border-white text-xs font-semibold py-2 px-4 rounded-full">
                   CONTACT US
                 </button>
-                <button className="bg-gradient-to-r from-[#8379B2] to-[#BFB6F6] text-xs font-semibold py-2 px-4 rounded-full">
-                  LOGIN
-                </button>
+
+                {!wallet && (
+                  <button
+                    className="bg-gradient-to-r from-[#8379B2] to-[#BFB6F6] text-xs font-semibold py-2 px-4 rounded-full"
+                    onClick={onLoginClick}
+                  >
+                    Sign In
+                  </button>
+                )}
+                {wallet && (
+                  <button
+                    className="bg-gradient-to-r from-[#8379B2] to-[#BFB6F6] text-xs font-semibold py-2 px-4 rounded-full"
+                    onClick={logout}
+                  >
+                    Sign Out
+                  </button>
+                )}
               </div>
             </div>
           </nav>
@@ -136,9 +165,13 @@ export default function Home() {
               </p>
 
               <div className="flex justify-start space-x-8 mt-20">
-                <button className="rounded-full font font-semibold bg-gradient-to-r from-[#8379B2] to-[#BFB6F6] text-xs py-2 px-8">
-                  EXPLORE PROFILES
-                </button>{" "}
+                <button
+                  onClick={toggleSection}
+                  className="rounded-full font font-semibold bg-gradient-to-r from-[#8379B2] to-[#BFB6F6] text-xs py-2 px-8"
+                >
+                  {showSection ? "HIDE PROFILES" : "EXPLORE PROFILES"}
+                </button>
+
                 <Image
                   src="/arrow.png" // Replace with the path to your image
                   alt="Logo"
@@ -235,6 +268,37 @@ export default function Home() {
               </button>
             </div>
           </div>
+          {showSection && (
+            <div className="flex ">
+              <div className="mr-10 w-screen flex flex-col md:flex-row md:flex-wrap">
+                {profiles?.map((profile, index) => (
+                  <Link href={`/profile/${profile.handle}`} key={index}>
+                    <div className="flex flex-col items-center min-w-100  bg-gradient-radial from-[#413C5D] via-[#312539] to-[#211E2D] rounded-lg p-3 h-[90%] m-2 ">
+                      {profile.picture &&
+                      profile.picture.__typename === "MediaSet" ? (
+                        <img
+                          src={profile.picture.original.url}
+                          width="120"
+                          height="120"
+                          alt={profile.handle}
+                          className="border-4 rounded-full mx-auto"
+                        />
+                      ) : (
+                        <div className="w-14 h-14 bg-slate-500	" />
+                      )}
+                      <h3 className="font-bold text-xl text-white mb-2">
+                        {profile.handle}
+                      </h3>
+                      <div className="border-t-[1px] h-0 w-48 mb-2"></div>
+                      <p className="text-[#8379B2] text-base w-80 ">
+                        {profile.bio}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
           {/* below the second image  */}
           <div className="flex flex-row justify-between items-center p-4 m-4 ">
             <div className=" space-y-2 w-[45%] hidden lg:block">
