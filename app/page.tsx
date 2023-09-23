@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import About from "./components/About";
+import FormComponent from "./components/FormComponent";
 
 export default function Home({ params: { handle } }) {
   const { data: profiles } = useExploreProfiles({
@@ -86,37 +87,31 @@ export default function Home({ params: { handle } }) {
                   CHAIN CHRONICLES
                 </p>
               </div>
-
-              {/* Middle section with navigation links */}
-              <div className="flex space-x-12 hidden xl:block ">
-                <a
-                  href="#about"
-                  className="text-white hover:text-gray-200 text-xs"
-                >
-                  ABOUT
-                </a>
-                <Link
-                  href="/team"
-                  className="text-white hover:text-gray-200 text-xs"
-                >
-                  CREATE PROFILE
-                </Link>
-                <Link
-                  href="/team"
-                  className="text-white hover:text-gray-200 text-xs"
-                >
-                  CREATE POST
-                </Link>
-
-                {/* Add more links as needed */}
-              </div>
-
-              {/* Right side with a button */}
               <span className=" sm:block xl:hidden ">
                 <GiHamburgerMenu
                   style={{ height: "40px", width: "40px", color: "#8379B2" }}
                 />
               </span>
+              {/* Middle section with navigation links */}
+              <div className=" hidden xl:block ">
+                <div className="flex items-center space-x-12">
+                  <a
+                    href="#about"
+                    className="text-white hover:text-gray-200 text-xs"
+                  >
+                    ABOUT
+                  </a>
+                  <Link
+                    href="/team"
+                    className="text-white hover:text-gray-200 text-xs"
+                  >
+                    CREATE PROFILE
+                  </Link>
+
+                  <FormComponent name={"CREATE POST"} />
+                </div>
+              </div>
+
               <div className="space-x-8 hidden xl:block">
                 <a
                   href="#contact"
