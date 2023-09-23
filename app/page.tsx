@@ -16,9 +16,10 @@ import Image from "next/image";
 import { LuPhoneCall } from "react-icons/lu";
 import { FiMail } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
+import About from "./components/About";
 
 export default function Home({ params: { handle } }) {
   const { data: profiles } = useExploreProfiles({
@@ -88,12 +89,12 @@ export default function Home({ params: { handle } }) {
 
               {/* Middle section with navigation links */}
               <div className="flex space-x-12 hidden xl:block ">
-                <Link
-                  href="/about"
+                <a
+                  href="#about"
                   className="text-white hover:text-gray-200 text-xs"
                 >
                   ABOUT
-                </Link>
+                </a>
                 <Link
                   href="/team"
                   className="text-white hover:text-gray-200 text-xs"
@@ -104,14 +105,9 @@ export default function Home({ params: { handle } }) {
                   href="/team"
                   className="text-white hover:text-gray-200 text-xs"
                 >
-                  hey{" "}
+                  CREATE POST
                 </Link>
-                <Link
-                  href="/team"
-                  className="text-white hover:text-gray-200 text-xs"
-                >
-                  HOW TO
-                </Link>
+
                 {/* Add more links as needed */}
               </div>
 
@@ -122,9 +118,12 @@ export default function Home({ params: { handle } }) {
                 />
               </span>
               <div className="space-x-8 hidden xl:block">
-                <button className="text-white border-2 border-white text-xs font-semibold py-2 px-4 rounded-full">
+                <a
+                  href="#contact"
+                  className="text-white border-2 border-white text-xs font-semibold py-2 px-4 rounded-full"
+                >
                   CONTACT US
-                </button>
+                </a>
 
                 {!wallet && (
                   <button
@@ -182,7 +181,7 @@ export default function Home({ params: { handle } }) {
               </div>
             </div>
 
-            <div className="relative z-20 p-12">
+            <div className="relative z-20 p-12 fade-in-from-right">
               <Image
                 src="/girl.png" // Replace with the path to your image
                 alt="Logo"
@@ -233,41 +232,7 @@ export default function Home({ params: { handle } }) {
               vitae.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center ">
-            <div className="w-[45%]">
-              <Image
-                src="/mask group.png" // Replace with the path to your image
-                alt="Logo"
-                className="m-2"
-                width={524}
-                height={557}
-              />
-            </div>{" "}
-            <div className="w-[45%] space-y-5">
-              <p className="font-bold text-white text-2xl lg:text-4xl ">
-                ABOUT
-              </p>
-              <p className="text-white text-3xl font-thin ">
-                CHAIN CHRONICLES{" "}
-              </p>{" "}
-              <p className=" text-white text-xs lg:text-base">
-                Eget mi proin sed libero enim sed faucibus turpis. Nisl rhoncus
-                mattis rhoncus urna neque viverra justo. Vivamus at augue eget
-                arcu dictum. Ultrices gravida dictum fusce ut placerat orci.
-                Aenean et tortor at risus viverra adipiscing at in. Mattis
-                aliquam faucibus purus in massa. Est placerat in egestas erat
-                imperdiet sed. Consequat semper viverra nam libero justo laoreet
-                sit amet. Aliquam etiam erat velit scelerisque in dictum non
-                consectetur a. Laoreet sit amet cursus sit amet. Vel eros donec
-                ac odio tempor orci dapibus. Sem nulla pha retra diam sit amet
-                nisl suscipit adipiscing bibendum. Leo a diam sollicitudi n
-                tempor.
-              </p>
-              <button className="bg-gradient-to-r from-[#8379B2] to-[#BFB6F6] text-xs font-semibold py-2 px-4 rounded-full hidden">
-                Let s get in touch
-              </button>
-            </div>
-          </div>
+
           {showSection && (
             <div className="flex ">
               <div className="mr-10 w-screen flex flex-col md:flex-row md:flex-wrap">
@@ -299,6 +264,9 @@ export default function Home({ params: { handle } }) {
               </div>
             </div>
           )}
+
+          <About />
+
           {/* below the second image  */}
           <div className="flex flex-row justify-between items-center p-4 m-4 ">
             <div className=" space-y-2 w-[45%] hidden lg:block">
@@ -328,96 +296,6 @@ export default function Home({ params: { handle } }) {
           </div>
 
           {/* cards components    */}
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-gradient-radial from-[#413C5D] via-[#312539] to-[#211E2D] rounded-lg shadow-lg p-2 overflow-hidden m-2">
-              <div className="relative z-10">
-                <Image
-                  src="/Mask group (1).png" // Replace with the path to your image
-                  alt="Logo"
-                  className="  border-4  rounded-full "
-                  width={190}
-                  height={190}
-                />
-              </div>
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl text-white mb-2">htyhg</div>
-                <div className="border-t-[1px] h-0 w-48 "></div>
-                <div className="text-gray-700 text-base">
-                  {" "}
-                  Viverra aliquet eget sit amet tellus. Ornare lectus sit amet
-                  est placerat in. Lectus magna fringilla urna porttitor rhoncus
-                  vitae.
-                </div>
-              </div>
-              <div className="px-6 py-4">
-                <button className="bg-gradient-to-r from-[#8379B2] to-[#BFB6F6]   font-bold py-2 px-4 rounded-full">
-                  Learn More
-                </button>
-              </div>
-            </div>
-
-            <div className="  bg-gradient-radial from-[#413C5D] via-[#312539] to-[#211E2D] relative rounded-lg shadow-lg overflow-hidden m-2">
-              <div className="">
-                <Image
-                  src="/Mask group (2).png" // Replace with the path to your image
-                  alt="Logo"
-                  className="m-8 blur-sm p-4 border-8 rounded-full border-[#B0B0B0] border-opacity-50"
-                  layout="responsive"
-                  width={200}
-                  height={80}
-                />
-              </div>
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">htyhg</div>
-                <div className="text-gray-700 text-base">dasfvc</div>
-              </div>
-              <div className="px-6 py-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                  Learn More
-                </button>
-              </div>
-            </div>
-            <div className="max-w-sm bg-white rounded-lg shadow-lg overflow-hidden m-2">
-              <div className="relative">
-                <Image
-                  src="/arrow.png" // Replace with the path to your image
-                  alt="Logo"
-                  className="m-8 border-8 rounded-full border-[#B0B0B0] border-opacity-50"
-                  width={200}
-                  height={80}
-                />
-              </div>
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">htyhg</div>
-                <div className="text-gray-700 text-base">dasfvc</div>
-              </div>
-              <div className="px-6 py-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                  Learn More
-                </button>
-              </div>
-            </div>
-            <div className="max-w-sm bg-white rounded-lg shadow-lg overflow-hidden m-2">
-              <div className="relative">
-                <Image
-                  src="/arrow.png" // Replace with the path to your image
-                  alt="Logo"
-                  className="m-8 border-8 rounded-full border-[#B0B0B0] border-opacity-50"
-                  width={200}
-                  height={80}
-                />
-              </div>
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">htyhg</div>
-                <div className="text-gray-700 text-base">dasfvc</div>
-              </div>
-              <div className="px-6 py-4">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          </div> */}
 
           {/* <div className="flex flex-row justify-center align-middle relative">
             {" "}
@@ -447,7 +325,10 @@ export default function Home({ params: { handle } }) {
             />
           </div> */}
 
-          <div className="flex flex-col md:flex-row bg-gradient-to-r from-[#211E2E] via-[#393355] to-[#211E2E] rounded-lg md:rounded-full justify-around p-5 mx-5 my-20">
+          <div
+            id="contact"
+            className="flex flex-col md:flex-row bg-gradient-to-r from-[#211E2E] via-[#393355] to-[#211E2E] rounded-lg md:rounded-full justify-around p-5 mx-5 my-20"
+          >
             <div className="flex justify-around items-center">
               <Image
                 src="/Page-1.png" // Replace with the path to your image
@@ -509,7 +390,7 @@ export default function Home({ params: { handle } }) {
               <p className="text-white ">SERVICES </p>
               <p className="text-white ">TECHNOLOGIES</p>
               <p className="text-white ">HOW TO</p>
-              <p className="text-white ">JOIN HYDRA</p>
+              <p className="text-white ">JOIN CC</p>
             </div>
             <div className="h-40 w-1 bg-gradient-to-b from-[#3F3349] via-[#B2A2D3] to-[#3F3349] hidden md:block"></div>
             <div className="hidden lg:block">
@@ -517,11 +398,11 @@ export default function Home({ params: { handle } }) {
               <p className="text-white">SERVICES </p>
               <p className="text-white">TECHNOLOGIES</p>
               <p className="text-white">HOW TO</p>
-              <p className="text-white">JOIN HYDRA</p>
+              <p className="text-white">JOIN CC</p>
             </div>
             <div className="h-40 w-1 bg-gradient-to-b from-[#3F3349] via-[#B2A2D3] to-[#3F3349] hidden lg:block"></div>
             <div>
-              <p className="text-white">SOCIALISE WITH HYDRA</p>
+              <p className="text-white">BLOG WITH CHAIN CHRONICLE</p>
               <Image
                 src="/Footer-Section.png" // Replace with the path to your image
                 alt="Logo"
@@ -537,8 +418,8 @@ export default function Home({ params: { handle } }) {
           <div className=" h-[1px] flex justify-center m-12  bg-gradient-to-r from-[#3F3349] via-[#B2A2D3] to-[#3F3349]"></div>
 
           <p className="flex justify-center text-xs md:text-sm text-white ">
-            2023 © HYDRA LANDING PAGE - BY ZINE. E. FALOUTI - ALL RIGHTS
-            RESERVED{" "}
+            2023 © CHAIN CHRONICLE LANDING PAGE - BY ZINE. E. FALOUTI - ALL
+            RIGHTS RESERVED{" "}
           </p>
         </div>
       </div>

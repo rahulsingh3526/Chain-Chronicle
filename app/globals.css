@@ -16,6 +16,14 @@
   }
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -132,3 +140,22 @@ body {
   background: #65c4fa;
   filter: blur(150px);
 }
+
+/* ANIMATION */
+
+@keyframes fadeFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-from-right {
+  animation: fadeFromRight 1s ease-in-out;
+}
+
