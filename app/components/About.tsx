@@ -6,7 +6,7 @@ const About = () => {
       <div className="flex flex-col md:flex-row justify-between items-center ">
         <div className="w-[45%]">
           <Image
-            src="/mask group.png" // Replace with the path to your image
+            src="/Mask group.png" // Replace with the path to your image
             alt="Logo"
             className="m-2"
             width={524}

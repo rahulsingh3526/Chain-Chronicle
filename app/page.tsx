@@ -21,6 +21,7 @@ import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import About from "./components/About";
 import FormComponent from "./components/FormComponent";
+import Skeleton from "./components/Skeleton";
 
 export default function Home({ params: { handle } }) {
   const { data: profiles } = useExploreProfiles({
@@ -57,6 +58,8 @@ export default function Home({ params: { handle } }) {
       });
     }
   };
+
+  if (loading) return <Skeleton />;
   return (
     // <div
     //   className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className} bg-[#302C42]`}
@@ -75,13 +78,6 @@ export default function Home({ params: { handle } }) {
                   width={700}
                   height={700}
                 />
-                {/* <Image
-                  src="/hydra.png" // Replace with the path to your image
-                  alt="Logo"
-                  className="w-12 h-8"
-                  width={500}
-                  height={500}
-                /> */}
 
                 <p className="font-semibold text-3xl text-gradient w-40 hidden md:block ">
                   CHAIN CHRONICLES
@@ -289,36 +285,6 @@ export default function Home({ params: { handle } }) {
               vitae.
             </p>
           </div>
-
-          {/* cards components    */}
-
-          {/* <div className="flex flex-row justify-center align-middle relative">
-            {" "}
-            <p className="font-bold text-white text-4xl absolute top-20">
-              TECHNOLOGIES & HARDWARE
-            </p>
-            <p className="text-white text-3xl font-thin absolute top-40">
-              USED BY HYDRA VR.{" "}
-            </p>
-            <Image
-              src="/Tech-Section (1).png" // Replace with the path to your image
-              alt="Logo"
-              className="m-8"
-              layout="responsive"
-              width={200}
-              height={80}
-            />
-          </div>
-          <div>
-            <Image
-              src="/Tech-Section (2).png" // Replace with the path to your image
-              alt="Logo"
-              className="m-8"
-              layout="responsive"
-              width={200}
-              height={80}
-            />
-          </div> */}
 
           <div
             id="contact"

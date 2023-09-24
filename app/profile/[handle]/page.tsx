@@ -1,5 +1,6 @@
 // app/profile/[handle]/page.tsx
 "use client";
+
 // new imports
 import {
   useProfile,
@@ -15,7 +16,7 @@ import {
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
-export default function Profile({ params: { handle } }) {
+export default function Page({ params: { handle } }) {
   // new hooks
   const { execute: login } = useWalletLogin();
   const { execute: logout } = useWalletLogout();
@@ -43,7 +44,7 @@ export default function Profile({ params: { handle } }) {
     }
   };
 
-  if (loading) return <p className="p-14">Loading ...</p>;
+  if (loading) return "Loading...";
 
   return (
     <div>
@@ -106,12 +107,24 @@ function FollowComponent({
   return (
     <>
       {isConnected && (
-        <button
-          className="bg-white text-black px-14 py-4 rounded-full"
-          onClick={follow}
-        >
-          Follow {profile.handle}
-        </button>
+        <>
+          {profile.isFollowedByMe && (
+            <button
+              className="bg-white text-black px-14 py-4 rounded-full"
+              onClick={follow}
+            >
+              Followed {profile.handle}
+            </button>
+          )}
+          {!profile.isFollowedByMe && (
+            <button
+              className="bg-white text-black px-14 py-4 rounded-full"
+              onClick={follow}
+            >
+              Follow {profile.handle}
+            </button>
+          )}
+        </>
       )}
     </>
   );
