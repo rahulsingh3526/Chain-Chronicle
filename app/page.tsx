@@ -104,7 +104,7 @@ export default function Home({ params: { handle } }) {
                     CREATE PROFILE
                   </Link>
 
-                  <FormComponent name={"CREATE POST"} />
+                  <FormComponent name={"CREATE BLOG"} />
                 </div>
               </div>
 
@@ -140,7 +140,7 @@ export default function Home({ params: { handle } }) {
             <div className="flex items-center flex-col space-x-4 w-1/3">
               <div className="space-y-1 text-2xl md:text-4xl">
                 <span className="font-semibold  text-gradient">
-                  CryptoCurrents{" "}
+                  CryptoBlog{" "}
                 </span>
                 <span className="font-semibold text-white  ">Beyond</span>
                 <span className="font-semibold  text-gradient ">

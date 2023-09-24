@@ -55,14 +55,17 @@ const FormComponent: React.FC<FormComponentProps> = ({ name }) => {
                     htmlFor="name"
                     className="block text-gray-700 font-bold mb-2"
                   >
-                    Create Post
+                    CreateBlog
                   </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
+                  <textarea
+                    rows={6}
+                    cols={60}
+                    name="description"
                     className="border rounded w-full py-2 px-3"
-                  />
+                  >
+                    Enter blog details here...
+                  </textarea>
+                  {/* <input type="text" id="name" name="name" /> */}
                 </div>
                 {/* Other form fields */}
                 <div className="text-center">

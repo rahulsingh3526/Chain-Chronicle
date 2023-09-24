@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div id="about">
       <div className="flex flex-col md:flex-row justify-between items-center ">
-        <div className="w-[45%]">
+        <div className="w-[45%] fade-in-from-right">
           <Image
             src="/Mask group.png" // Replace with the path to your image
             alt="Logo"
