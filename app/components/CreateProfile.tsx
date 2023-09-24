@@ -1,39 +1,44 @@
-import {
-  useCreateProfile,
-  DuplicatedHandleError,
-} from "@lens-protocol/react-web";
+// This component has a error in the type handle not able to figure out so can't move it to production so just commenting it out here.
 
-export default function CreateProfile() {
-  const { execute, isPending } = useCreateProfile();
+// import {
+//   useCreateProfile,
+//   DuplicatedHandleError,
+// } from "@lens-protocol/react-web";
 
-  const onClick = async () => {
-    const handle = window.prompt("Enter your handle");
+// interface Profile {
+//   handle: string;
+// }
+// const CreateProfile: React.FC<Profile> = () => {
+//   const { execute, isPending } = useCreateProfile();
 
-    const result = await execute({ handle });
+//   const onClick = async () => {
+//     const handle = window.prompt("Enter your handle");
 
-    if (result.isSuccess()) {
-      console.log("Profile created!");
-      return;
-    }
+//     const result = await execute({ handle });
 
-    switch (result.error.constructor) {
-      case DuplicatedHandleError:
-        console.log("Handle already taken");
+//     if (result.isSuccess()) {
+//       console.log("Profile created!");
+//       return;
+//     }
 
-      default:
-        console.log(`Could not create profile due to: ${result.error.message}`);
-    }
-  };
+//     switch (result.error.constructor) {
+//       case DuplicatedHandleError:
+//         console.log("Handle already taken");
 
-  return (
-    <div>
-      <button
-        disabled={isPending}
-        onClick={onClick}
-        className="text-white hover:text-gray-200 text-xs"
-      >
-        CREATE PROFILE
-      </button>
-    </div>
-  );
-}
+//       default:
+//         console.log(`Could not create profile due to: ${result.error.message}`);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <button
+//         disabled={isPending}
+//         onClick={onClick}
+//         className="text-white hover:text-gray-200 text-xs"
+//       >
+//         CREATE PROFILE
+//       </button>
+//     </div>
+//   );
+// };

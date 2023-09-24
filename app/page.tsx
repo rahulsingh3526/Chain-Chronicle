@@ -22,7 +22,6 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import About from "./components/About";
 import FormComponent from "./components/FormComponent";
 import Skeleton from "./components/Skeleton";
-import CreateProfile from "./components/CreateProfile";
 
 export default function Home({ params: { handle } }) {
   const { data: profiles } = useExploreProfiles({
@@ -98,7 +97,9 @@ export default function Home({ params: { handle } }) {
                   >
                     ABOUT
                   </a>
-                  <CreateProfile />
+                  <a className="text-white hover:text-gray-200 text-xs">
+                    CREATE PROFILE
+                  </a>
 
                   <FormComponent name={"CREATE BLOG"} />
                 </div>
@@ -136,7 +137,7 @@ export default function Home({ params: { handle } }) {
             <div className="flex items-center flex-col space-x-4 w-1/3">
               <div className="space-y-1 text-2xl md:text-4xl">
                 <span className="font-semibold  text-gradient">
-                  CryptoBlog{" "}
+                  CryptoBlog:{" "}
                 </span>
                 <span className="font-semibold text-white  ">Beyond</span>
                 <span className="font-semibold  text-gradient ">
