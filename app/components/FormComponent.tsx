@@ -18,9 +18,9 @@ const FormComponent: React.FC<FormComponentProps> = ({ name }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
+
     console.log("Form submitted");
-    // Close the form after submission (you can modify this behavior as needed)
+
     setShowForm(false);
   };
 

@@ -22,6 +22,7 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import About from "./components/About";
 import FormComponent from "./components/FormComponent";
 import Skeleton from "./components/Skeleton";
+import CreateProfile from "./components/CreateProfile";
 
 export default function Home({ params: { handle } }) {
   const { data: profiles } = useExploreProfiles({
@@ -97,12 +98,7 @@ export default function Home({ params: { handle } }) {
                   >
                     ABOUT
                   </a>
-                  <Link
-                    href="/team"
-                    className="text-white hover:text-gray-200 text-xs"
-                  >
-                    CREATE PROFILE
-                  </Link>
+                  <CreateProfile />
 
                   <FormComponent name={"CREATE BLOG"} />
                 </div>
