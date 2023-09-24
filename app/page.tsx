@@ -47,6 +47,9 @@ export default function Home({ params: { handle } }) {
 
   // new login function
   const onLoginClick = async () => {
+    console.log(
+      "disclaimer: since I haven't created a create profile functionality due to unresolvable type error this signin only works if you already have a lens profile handle"
+    );
     if (isConnected) {
       await disconnectAsync();
     }
@@ -121,7 +124,7 @@ export default function Home({ params: { handle } }) {
                     Sign In
                   </button>
                 )}
-                {wallet && (
+                {wallet && profile && (
                   <button
                     className="bg-gradient-to-r from-[#8379B2] to-[#BFB6F6] text-xs font-semibold py-2 px-4 rounded-full"
                     onClick={logout}
